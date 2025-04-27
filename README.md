@@ -23,12 +23,21 @@ app.use(ElNotification)
 npm install -D sass
 ```
 二、使用教程
-  1. 打开```"D:\STUDY\25up\Course3\new-project\vue3-vite"```目录，右键打开命令行，运行：
+<br>  1. 打开```"D:\STUDY\25up\Course3\new-project\vue3-vite"```目录，右键打开命令行，运行：
 ```npm run dev```即可运行前端
+<br>  ps：下面的后端基础配置可以去看原作的ReadMe教程，如果想使用本项目的前端页面可以在成功部署原作的基础上执行命令: ```git clone https://github.com/therain2020/Better-Vue3-Vite-application.git```将本仓库中的前端项目替换原作中的前端项目即可
+
 <br>  2. 使用IDEA打开项目（带黑点的文件夹即是项目目录文件），用maven导入依赖
+
 <br>  3. 设置中选择JDK 17，运行src/main/java/com/clb目录下的```BookApplication.java```文件，即可运行后端
+
 <br>  4. 数据库需要打开application-dev.yml文件把账户和密码改成你自己的，同时修改数据库名称；Redis无需密码，修改application-dev.yml文件对应配置即可
-<br>  ps：其实这部分基础配置可以去看原作的ReadMe教程，如果想使用本项目的前端页面可以在成功部署原作的基础上执行命令：
-  ```git clone https://github.com/therain2020/Better-Vue3-Vite-application.git```
-  将本仓库中的前端项目替换原作中的前端项目即可
-<br>[个人博客链接](https://therain2020.github.io/)
+
+<br>  [个人博客链接](https://therain2020.github.io/)
+
+三、前端页面
+![loginPage](README_STATIC/pictures/login.png)
+![registerPage](README_STATIC/pictures/register.png)
+![userPage](README_STATIC/pictures/userView.png)
+![mangePage](README_STATIC/pictures/manageView.png)
+![dataPage](README_STATIC/pictures/userData.png)
