@@ -33,4 +33,4 @@ npm install -D sass
   ```git clone https://github.com/therain2020/Better-Vue3-Vite-application.git```
   将本仓库中的前端项目替换原作中的前端项目即可
 
-  [友情链接](https://therain2020.github.io/)
+  [个人博客链接](https://therain2020.github.io/)

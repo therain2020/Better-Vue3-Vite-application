@@ -6,6 +6,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/java_design?serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
+    #上面的url中的 java_design 是我设置的数据库名称
     username: root
     password: DXmimashi040417
     type: com.alibaba.druid.pool.DruidDataSource
