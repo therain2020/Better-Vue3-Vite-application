@@ -6,7 +6,7 @@
 <br>node版本为1.2.2
 <br>
 
-一、优化前端登录界面
+一、配置更改
   1. 在 ```main.js``` 中，配合Element Plus的按需导入，新增:
 
 ```
@@ -19,3 +19,5 @@ app.use(ElNotification)
 ```
 npm install -D sass
 ```
+
+二、优化后的效果图如下
