@@ -1,4 +1,5 @@
 # Better-Vue3-Vite-application
+
 在GitHub上[原作](https://github.com/caolib/vue3-vite)的基础上进行项目的迭代开发
 
 版本信息：
@@ -10,22 +11,32 @@
 <br>vue 3
 
 一、修改部分主要集中在前端，如下：
-  1. 在 ```main.js``` 中，配合Element Plus的按需导入，新增:
+
+
+
+1. 在 ```main.js``` 中，配合Element Plus的按需导入，新增:
 
 ```
 import { ElLoading, ElNotification } from 'element-plus';
- 
+
 app.use(ElLoading) 
 app.use(ElNotification) 
 ```
-  2. 修改后的Vue代码需要新模块，在项目目录下打开命令行，执行以下语句：
+
+2. 修改后的Vue代码需要新模块，在项目目录下打开命令行，执行以下语句：
+   
+   ```
+   npm install -D sass
+   ```
+3. 完善ISBN校验规则，新增校验规则函数
 ```
-npm install -D sass
+
 ```
-二、使用教程
-<br>  1. 打开```"D:\STUDY\25up\Course3\new-project\vue3-vite"```目录，右键打开命令行，运行：
-```npm run dev```即可运行前端
-<br>  ps：下面的后端基础配置可以去看原作的ReadMe教程，如果想使用本项目的前端页面可以在成功部署原作的基础上执行命令: ```git clone https://github.com/therain2020/Better-Vue3-Vite-application.git```将本仓库中的前端项目替换原作中的前端项目即可
+
+   二、使用教程
+   <br>  1. 打开```"D:\STUDY\25up\Course3\new-project\vue3-vite"```目录，右键打开命令行，运行：
+   ```npm run dev```即可运行前端
+   <br>  ps：下面的后端基础配置可以去看原作的ReadMe教程，如果想使用本项目的前端页面可以在成功部署原作的基础上执行命令: ```git clone https://github.com/therain2020/Better-Vue3-Vite-application.git```将本仓库中的前端项目替换原作中的前端项目即可
 
 <br>  2. 使用IDEA打开项目（带黑点的文件夹即是项目目录文件），用maven导入依赖
 

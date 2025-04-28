@@ -6,6 +6,38 @@ import HeaderView from "@/components/HeaderView.vue";
 import {Plus} from "@element-plus/icons-vue";
 import {ElMessage} from "element-plus";
 
+// ISBN 校验工具函数 
+const cleanISBN = (isbn) => isbn.replace(/[-\s]/g,  '');
+ 
+const validateISBN10 = (isbn) => {
+  let sum = 0;
+  for (let i = 0; i < 9; i++) sum += parseInt(isbn[i]) * (10 - i);
+  const checksum = (11 - (sum % 11)) % 11;
+  const lastChar = isbn[9].toUpperCase();
+  return checksum === 10 ? lastChar === 'X' : checksum === parseInt(lastChar);
+};
+ 
+const validateISBN13 = (isbn) => {
+  let sum = 0;
+  for (let i = 0; i < 12; i++) sum += parseInt(isbn[i]) * (i % 2 === 0 ? 1 : 3);
+  return ((10 - (sum % 10)) % 10) === parseInt(isbn[12]);
+};
+ 
+const isbnValidator = (rule, value, callback) => {
+  if (!value) return callback(new Error('ISBN不能为空'));
+  
+  const cleaned = cleanISBN(value);
+  if (!/^(?:\d{10}|\d{13})$/.test(cleaned)) {
+    return callback(new Error('格式错误：需10或13位数字'));
+  }
+ 
+  const isValid = cleaned.length  === 10 ? 
+    validateISBN10(cleaned) : 
+    validateISBN13(cleaned);
+  
+  isValid ? callback() : callback(new Error('校验码错误'));
+};
+
 const tableData = ref([]);
 
 // 页面加载时获取所有书籍
@@ -97,23 +129,33 @@ const addBookFunc = async () => {
 
   await addBookService(addBook.value);
   ElMessage.success("添加成功!");
+  cancelAdd();
   showAdd.value = false;
   condition.value.bookName = addBook.value.title;
   await getAllBooks();
 }
+
+//取消添加书籍时清空对话框
+const cancelAdd = () => {
+  showAdd.value  = false;
+  addBook.value  = {
+    title: null,
+    isbn: null,
+    cover: null,
+    introduction: null,
+    number: null,
+    author: null 
+  };
+};
 
 // 添加表单校验规则
 const rules = {
   title: [
     {max: 30, message: '最多30个字符', trigger: ['blur', 'change']}
   ],
-  isbn: [  // 新增校验规则 
+  isbn: [
     { required: true, message: 'ISBN不能为空', trigger: ['blur', 'change'] },
-    { 
-      pattern: /^(?:\d{13}|\d{10})$/,
-      message: 'ISBN必须是10或13位数字',
-      trigger: ['blur', 'change']
-    }
+    { validator: isbnValidator, trigger: ['blur', 'change'] }
   ],
   cover: [
     {max: 200, message: '最多200个字符', trigger: ['blur', 'change']}
@@ -245,7 +287,7 @@ const updateBook = async () => {
                   </el-form-item>
 
                   <el-form-item label="ISBN" prop="isbn" required>
-                    <el-input v-model="book.isbn"  :disabled="!book.isbn"  />
+                    <el-input v-model="book.isbn"  :disabled="!book.isbn"  @blur="formatISBN('edit')"/>
                   </el-form-item>
                   <el-form-item label="简介" prop="introduction">
                     <el-input v-model="book.introduction"
@@ -271,7 +313,7 @@ const updateBook = async () => {
                     <el-input v-model="addBook.title" placeholder="书名"/>
                   </el-form-item>
                   <el-form-item prop="isbn" required>
-                    <el-input v-model="addBook.isbn" placeholder="ISBN"/>
+                    <el-input v-model="addBook.isbn" placeholder="支持带分隔符，如：978-7-115-12345-6" @blur="formatISBN('add')"/>
                   </el-form-item>
                   <el-form-item prop="number" required>
                     <el-input v-model.number="addBook.number" placeholder="库存"/>
@@ -289,7 +331,7 @@ const updateBook = async () => {
 
                 <el-form>
                   <el-button type="primary" @click="addBookFunc">添加</el-button>
-                  <el-button type="danger">取消</el-button>
+                  <el-button type="danger" @click="cancelAdd">取消</el-button>
                 </el-form>
 
               </el-dialog>
